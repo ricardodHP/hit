@@ -16,3 +16,8 @@
 - Do not introduce character-specific mechanics before Stage 3.
 
 - Stage 3 character content must stay data-driven through `src/game/characters` and `src/game/skills`; do not add a second playable character yet.
+- Every skill must terminate through the central skill finalization path.
+- Every temporary movement, speed, armor, invulnerability, rotation, timer, tween, hitbox, or callback modification must be restored in skill cleanup.
+- Skills with timers or tweens must register them for cleanup on death, reset, interruption, collision, and shutdown.
+- Every dual-wield character pose must define both weapon transforms.
+- Phaser UI text must use explicit bounds, wrapping, and safe-area margins.

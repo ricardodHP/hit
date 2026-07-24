@@ -33,3 +33,7 @@ The stage emits character, skill, contextual, and combat events such as `charact
 ## Adding another character later
 
 Add a new definition, attacks, skills, visual poses, and optional mechanic implementation. Register it with the registry and supply its mechanic factory. Do not duplicate `DamageSystem`, `AttackController`, scene hitbox logic, HUD logic, or enemy systems.
+
+## Stage 3.1 Kael stabilization
+
+Kael's skills remain data-driven `SkillDefinition` entries, but their runtime ownership is centralized in `SkillController`. The controller exposes diagnostics for debug tooling and accepts cleanup hooks from combat integration instead of embedding Phaser scene logic. Dual-wield readability is represented by renderer-independent pose data in `KaelVisualController`, keeping weapon transforms separate from hitbox geometry and scene orchestration.

@@ -3,12 +3,12 @@ const make = (scene: Phaser.Scene, key: string, w: number, h: number, draw: (g: 
   const g = scene.add.graphics(); draw(g); g.generateTexture(key, w, h); g.destroy();
 };
 export function createPlaceholderTextures(scene: Phaser.Scene): void {
-  make(scene,'stone-floor',64,64,g=>{g.fillStyle(0x34313a).fillRect(0,0,64,64);g.lineStyle(2,0x45414c,.8).strokeRect(1,1,62,62);g.fillStyle(0x3d3944,.7).fillRect(8,10,18,12).fillRect(38,34,16,18);});
+  make(scene,'stone-floor',64,64,g=>{g.fillStyle(0x2f3035).fillRect(0,0,64,64);g.lineStyle(1,0x414249,.55).strokeRect(1,1,62,62);g.fillStyle(0x383941,.55).fillRect(8,10,18,12).fillRect(38,34,16,18);g.lineStyle(1,0x202127,.45).lineBetween(12,50,28,43).lineBetween(46,8,55,19);g.fillStyle(0x324035,.35).fillCircle(9,45,4);});
   make(scene,'wall',64,64,g=>{g.fillStyle(0x211d27).fillRect(0,0,64,64);g.lineStyle(3,0x695d72).strokeRect(3,3,58,58);});
-  make(scene,'column',64,82,g=>{g.fillStyle(0x17151b,.45).fillEllipse(32,70,58,18);g.fillStyle(0x77707d).fillRoundedRect(16,8,32,60,8);g.fillStyle(0x9c93a5).fillRect(10,6,44,10).fillRect(10,62,44,10);});
-  make(scene,'rubble',74,48,g=>{g.fillStyle(0x17151b,.45).fillEllipse(37,38,68,16);g.fillStyle(0x6d6670).fillCircle(18,28,14).fillCircle(38,22,18).fillCircle(56,30,12);});
-  make(scene,'torch',28,60,g=>{g.fillStyle(0x4a2b1c).fillRect(11,22,6,35);g.fillStyle(0xff9a24).fillTriangle(14,0,3,28,25,28);g.fillStyle(0xffe17a).fillTriangle(14,8,8,28,20,28);});
-  make(scene,'sanctuary-door',128,52,g=>{g.fillStyle(0x32243c).fillRoundedRect(0,0,128,52,8);g.lineStyle(4,0xb99055).strokeRoundedRect(4,4,120,44,8);});
+  make(scene,'column',64,82,g=>{g.fillStyle(0x08090c,.36).fillEllipse(34,72,58,16);g.fillStyle(0x5f626b).fillRoundedRect(16,15,32,50,8);g.fillStyle(0x777b86).fillRect(22,15,8,50);g.fillStyle(0x383a42,.65).fillRect(41,17,6,46);g.fillStyle(0x858993).fillRoundedRect(9,6,46,12,3).fillRoundedRect(8,62,48,12,3);g.lineStyle(1,0xb0b4bd,.45).lineBetween(18,16,18,61);});
+  make(scene,'rubble',74,48,g=>{g.fillStyle(0x09090c,.32).fillEllipse(37,39,68,13);g.fillStyle(0x666974).fillTriangle(8,35,24,16,32,38).fillTriangle(32,36,45,10,58,34).fillTriangle(50,38,64,22,70,39);g.fillStyle(0x4d5058).fillRect(18,30,15,8).fillRect(42,31,10,6);});
+  make(scene,'torch',40,66,g=>{g.fillStyle(0xffa33a,.16).fillCircle(20,20,19);g.fillStyle(0x4a2b1c).fillRect(17,26,6,35);g.fillStyle(0xc95f2e).fillTriangle(20,3,8,31,32,30);g.fillStyle(0xffb647).fillTriangle(20,0,12,29,27,28);g.fillStyle(0xffef9a).fillTriangle(20,10,16,28,24,28);});
+  make(scene,'sanctuary-door',128,62,g=>{g.fillStyle(0x211924).fillRoundedRect(0,0,128,62,8);g.lineStyle(4,0x8b6d46).strokeRoundedRect(4,4,120,54,8);g.fillStyle(0x111218,.72).fillRect(18,10,10,42).fillRect(42,10,10,42).fillRect(66,10,10,42).fillRect(90,10,10,42);g.lineStyle(2,0xd0a661,.55).lineBetween(10,8,118,8);});
   make(scene,'player-idle',52,58,g=>{g.fillStyle(0x101018,.35).fillEllipse(26,49,42,14);g.fillStyle(0x3aaed8).fillRoundedRect(16,18,20,28,8);g.fillStyle(0xf6f0d8).fillCircle(26,13,8);g.fillStyle(0xffd166).fillRect(37,24,11,5);});
   make(scene,'player-block',52,58,g=>{g.fillStyle(0x101018,.35).fillEllipse(26,49,42,14);g.fillStyle(0x3aaed8).fillRoundedRect(16,18,20,28,8);g.fillStyle(0xf6f0d8).fillCircle(26,13,8);g.fillStyle(0x8be9fd).fillRoundedRect(35,17,8,30,4);});
   make(scene,'player-attack',64,58,g=>{g.fillStyle(0x101018,.35).fillEllipse(26,49,42,14);g.fillStyle(0x4cc7ff).fillRoundedRect(16,18,20,28,8);g.fillStyle(0xf6f0d8).fillCircle(26,13,8);g.fillStyle(0xffd166).fillTriangle(36,24,62,12,58,20);});

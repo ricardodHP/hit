@@ -47,3 +47,9 @@ Kael can chain only through declared combo windows, dodge-cancel late recovery o
 ## Provisional balance and limitations
 
 The full combo is tuned to defeat a normal enemy in roughly two chains. Skills are setup/control tools and should not delete a full-health heavy alone. Visuals are generated local placeholders, not final art.
+
+## Stage 3.1 stabilization and readability
+
+Kael's skill lifecycle is finalized through the central `finishSkill(reason)` contract. Rising Tempest, Phantom Rush, and Blade Cyclone share the same idempotent cleanup path for active skill id, attack phase, hitboxes, timers, tweens, movement overrides, speed modifiers, super armor, temporary invulnerability, and visual state. Phantom Rush was the most likely freeze route because dash interruption/collision could stop movement before the expected sequence completed; Blade Cyclone required explicit speed-modifier cleanup so repeated casts do not slow Kael progressively.
+
+Kael's provisional visuals now define a two-sword pose model. Idle and movement separate left and right blades; Twin Slash I leads right, Twin Slash II leads left, Cross Cut uses both, skills expose both trails, block crosses both weapons, and down/dead poses keep both swords connected to the body.
