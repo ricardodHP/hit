@@ -54,7 +54,7 @@ The playable arena remains **Ruins of Asteria**: stone floor, exterior walls, sa
 
 ## Known limitations
 
-- Placeholder graphics are generated locally from Phaser shapes and are not final art.
+- Stage 3.2 replaces visible gameplay primitives with local raster placeholder PNGs, sprite sheets, a tilemap, and manifest-driven animation metadata; these placeholders are not final production art.
 - Enemy movement is still lightweight steering/repositioning, not pathfinding.
 - Hit-stop is represented with short camera/impact feedback and entity timing hooks, not a full animation time-scaling layer.
 - Stage 3.1 automated stabilization checks pass, but interactive browser QA is blocked in this container and must be repeated locally before declaring visual and playtest QA fully complete.

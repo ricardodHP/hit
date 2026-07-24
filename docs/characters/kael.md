@@ -46,7 +46,7 @@ Kael can chain only through declared combo windows, dodge-cancel late recovery o
 
 ## Provisional balance and limitations
 
-The full combo is tuned to defeat a normal enemy in roughly two chains. Skills are setup/control tools and should not delete a full-health heavy alone. Visuals are generated local placeholders, not final art.
+The full combo is tuned to defeat a normal enemy in roughly two chains. Skills are setup/control tools and should not delete a full-health heavy alone. Visuals now use local raster placeholder sprite sheets with explicit two-sword metadata and animation sync. They are not final production art.
 
 ## Stage 3.1 stabilization and readability
 

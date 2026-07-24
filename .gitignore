@@ -2,3 +2,9 @@ node_modules/
 dist/
 tsconfig.tsbuildinfo
 *.local
+
+# Generated local raster placeholder assets
+assets/**/*.png
+
+# Generated Vite-served runtime assets
+public/assets/
