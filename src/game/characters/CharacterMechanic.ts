@@ -1,0 +1,1 @@
+export interface CharacterMechanic { readonly id:string; update(deltaMs:number):void; reset():void; onHit?(source:string):void; onDamageTaken?():void; onGuardBreak?():void; onDeath?():void; snapshot(): Record<string, string | number | boolean> }

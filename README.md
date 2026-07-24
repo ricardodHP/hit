@@ -1,6 +1,6 @@
 # Ruins of Asteria
 
-A maintainable browser action RPG prototype with original names, local placeholder art, and top-down arena combat patterns. Stage 2 replaces the provisional combat with a data-driven combat framework. Stage 2.5 stabilizes lethal damage, explicit knockback, scene restart cleanup, and combat QA documentation.
+A maintainable browser action RPG prototype with original names, local placeholder art, and top-down arena combat patterns. Stage 3 adds a configurable character framework and the first original playable hero, Kael — Swiftblade, on top of the stabilized combat framework.
 
 ## Technologies
 
@@ -27,18 +27,20 @@ npm install
 ## Controls
 
 - WASD or arrow keys: move.
-- J or Space: normal attack / counterattack when `COUNTER READY` is active.
-- K: provisional circular skill routed through attack phases.
+- J or Space: Kael normal combo / contextual attack / counterattack when `COUNTER READY` is active.
+- K: Rising Tempest.
+- O: Phantom Rush.
+- P: Blade Cyclone.
 - L: dodge with startup, invulnerability frames, movement, recovery, and cooldown.
 - I: frontal block.
 - F2: toggle combat debug overlay.
 - R: restart the arena.
-- Touch: directional pad plus attack, skill, dodge, and block buttons on coarse or narrow screens.
+- Touch: directional pad plus attack, three skill, dodge, and block buttons on coarse or narrow screens.
 - Gamepad: left stick, A, B, R1, and shoulder/trigger block are read when supported.
 
-## Stage 2 combat
+## Stage 3 character combat
 
-- The player has a four-hit normal combo: Attack 1, Attack 2, Attack 3, and Finisher.
+- Kael has a five-hit dual-sword combo: Twin Slash I, Twin Slash II, Cross Cut, Rising Fang, and Falling Edge.
 - Attacks are data definitions with `startup`, `active`, and `recovery` phases instead of single cooldown checks.
 - Hitboxes and hurtboxes are explicit and support circle, rectangle, and approximate frontal arc checks.
 - Damage flows through a central system that validates invulnerability, block direction, perfect block timing, guard cost, stun, knockback, airborne, knockdown, and defeat.
@@ -56,8 +58,8 @@ The playable arena remains **Ruins of Asteria**: stone floor, exterior walls, sa
 - Enemy movement is still lightweight steering/repositioning, not pathfinding.
 - Hit-stop is represented with short camera/impact feedback and entity timing hooks, not a full animation time-scaling layer.
 - Stage 2.5 automated stabilization checks pass, but interactive browser QA is blocked in this container and must be repeated locally before declaring the stage fully complete.
-- No character classes, campaign, inventory, progression, final audio, backend, monetization, PvP, or online save systems are included.
+- Only Kael is implemented; no second character, campaign, inventory, progression, final audio, backend, monetization, PvP, or online save systems are included.
 
 ## Next stage
 
-Stage 3 can add original character-specific kits on top of the reusable combat definitions, state machine, hitbox/damage pipeline, status effects, guard/counter flow, and enemy attack director without putting combat rules back into scenes.
+A future stage can add a second original character on top of the reusable combat definitions, state machine, hitbox/damage pipeline, status effects, guard/counter flow, and enemy attack director without putting combat rules back into scenes.

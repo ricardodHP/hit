@@ -85,3 +85,8 @@ Approach
 ## Debug overlay
 
 F2 toggles a lightweight overlay with player id, health, guard, state, attack phase/id, combo index, invulnerability, counter readiness, dodge cooldown, knockback velocity, input/dead flags, enemy health/state/AI/active attack/slot/target/velocity, and scene actor/hitbox/slot counts.
+
+
+## Stage 3 character and skill flow
+
+Kael replaces the generic player combo with five data-defined attacks. Skills are `SkillDefinition` entries with cooldown metadata and are executed through `SkillController`, `AttackController`, `HitDetectionSystem`, `DamageSystem`, and status application rather than a parallel damage path. Death cleanup now resets combo index/timer, input buffer, active attack, attack phase, skill state, cooldown transients where appropriate, counter readiness, and Momentum. Contextual attacks are selected deterministically from enemy control states and reuse the same damage pipeline.
