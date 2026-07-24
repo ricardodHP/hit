@@ -36,4 +36,4 @@ Add a new definition, attacks, skills, visual poses, and optional mechanic imple
 
 ## Stage 3.1 Kael stabilization
 
-Kael's skills remain data-driven `SkillDefinition` entries, but their runtime ownership is centralized in `SkillController`. The controller exposes diagnostics for debug tooling and accepts cleanup hooks from combat integration instead of embedding Phaser scene logic. Dual-wield readability is represented by renderer-independent pose data in `KaelVisualController`, keeping weapon transforms separate from hitbox geometry and scene orchestration.
+Kael's skills remain data-driven `SkillDefinition` entries, but their runtime ownership is centralized in `SkillController`. The controller exposes diagnostics for debug tooling and accepts cleanup hooks from combat integration instead of embedding Phaser scene logic. Dual-wield readability is represented by renderer-independent pose data and Stage 3.2 animation metadata, keeping weapon visibility, animation sync, and hitbox geometry separate from scene orchestration.

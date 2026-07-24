@@ -21,3 +21,15 @@
 - Skills with timers or tweens must register them for cleanup on death, reset, interruption, collision, and shutdown.
 - Every dual-wield character pose must define both weapon transforms.
 - Phaser UI text must use explicit bounds, wrapping, and safe-area margins.
+
+## Stage 3.2 raster visual rules
+
+- Do not use visible Phaser primitives as gameplay art.
+- Assets must be local repository files; do not load runtime assets from remote URLs.
+- Every external art source requires license verification and attribution in `assets/ATTRIBUTION.md`.
+- Combat animations must declare renderer-independent synchronization metadata.
+- `finishSkill(reason)` remains authoritative for skill cleanup; animation completion is never the sole cleanup path.
+- Do not store large base64 blobs in TypeScript.
+- Do not mix incompatible art styles, resolutions, or scales.
+- Every new visible gameplay entity requires a raster sprite or tile asset.
+- Debug may use geometric shapes only when F2/debug visualization is active.
