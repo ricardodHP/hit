@@ -3,6 +3,7 @@ export class InputController {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private keys: Record<string, Phaser.Input.Keyboard.Key>;
   private touch = { x: 0, y: 0, attack: false, skill: false, dodge: false, block: false };
+  private touchRoot?: HTMLElement;
   constructor(private scene: Phaser.Scene) {
     const keyboard = scene.input.keyboard!;
     this.cursors = keyboard.createCursorKeys();
@@ -19,8 +20,9 @@ export class InputController {
   private createTouchControls(): void {
     const root = document.getElementById('hud-root'); if (!root) return;
     const wrap = document.createElement('div'); wrap.className = 'touch-controls'; wrap.innerHTML = `<div class="touch-pad"><span></span><button class="touch-button" data-dir="up">▲</button><span></span><button class="touch-button" data-dir="left">◀</button><span></span><button class="touch-button" data-dir="right">▶</button><span></span><button class="touch-button" data-dir="down">▼</button><span></span></div><div class="touch-actions"><button class="touch-button" data-act="attack">J</button><button class="touch-button" data-act="skill">K</button><button class="touch-button" data-act="dodge">L</button><button class="touch-button" data-act="block">I</button></div>`;
-    root.appendChild(wrap);
+    root.querySelector('.touch-controls')?.remove(); root.appendChild(wrap); this.touchRoot=wrap;
     const setDir = (dir: string, on: boolean) => { const v = on ? 1 : 0; if (dir==='left') this.touch.x=-v; if(dir==='right') this.touch.x=v; if(dir==='up') this.touch.y=-v; if(dir==='down') this.touch.y=v; };
     wrap.querySelectorAll<HTMLButtonElement>('button').forEach(b=>{b.onpointerdown=()=>{const d=b.dataset.dir; const a=b.dataset.act; if(d) setDir(d,true); if(a==='attack') this.touch.attack=true; if(a==='skill') this.touch.skill=true; if(a==='dodge') this.touch.dodge=true; if(a==='block') this.touch.block=true;}; b.onpointerup=b.onpointercancel=()=>{const d=b.dataset.dir; if(d) setDir(d,false); if(b.dataset.act==='block') this.touch.block=false;};});
   }
+  destroy(): void { this.touchRoot?.remove(); }
 }

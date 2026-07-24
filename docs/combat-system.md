@@ -10,6 +10,8 @@ Input
 → Hitbox Active
 → HitDetection
 → DamageSystem
+→ Lethal clamp / death cleanup
+→ Explicit knockback only when configured
 → StatusEffect
 → Combat Events
 → HUD / Effects
@@ -67,6 +69,8 @@ Dodge input
 
 ## Enemy attack flow
 
+Normal enemy attacks declare `knockback: 0`; heavy or future attacks may move the player only when their data definition explicitly declares positive knockback. Passive actor contact is not combat knockback.
+
 ```text
 Approach
 → Position
@@ -80,4 +84,4 @@ Approach
 
 ## Debug overlay
 
-F2 toggles a lightweight overlay with player state, attack phase, combo index, invulnerability, guard, counter timer, dodge cooldown, enemy attack slots, AI state, and attacker permission ownership.
+F2 toggles a lightweight overlay with player id, health, guard, state, attack phase/id, combo index, invulnerability, counter readiness, dodge cooldown, knockback velocity, input/dead flags, enemy health/state/AI/active attack/slot/target/velocity, and scene actor/hitbox/slot counts.

@@ -2,12 +2,12 @@
 
 ## Scene cycle
 
-`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` creates all provisional local textures through generated Phaser graphics and then starts `CombatScene`. `CombatScene` orchestrates the arena runtime: world creation, player/enemy spawning, collisions, input routing, combat system updates, HUD state, victory, defeat, and restart.
+`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` creates all provisional local textures through generated Phaser graphics and then starts `CombatScene`. `CombatScene` orchestrates the arena runtime: world creation, player/enemy spawning, collisions, input routing, combat system updates, HUD state, victory, defeat, and restart. Restart uses scene reconstruction with explicit shutdown cleanup for HUD/debug DOM, touch controls, telegraphs, combat controllers, and `AttackDirector` slots so no stale actor references remain.
 
 ## Responsibilities
 
 - Config: Phaser renderer, scaling, physics, and scene list.
-- Actors: `Player` and `Enemy` encapsulate Phaser sprite/body state and expose combat runtime snapshots.
+- Actors: `Player` and `Enemy` encapsulate Phaser sprite/body state and expose combat runtime snapshots. Actor-vs-actor combat displacement is explicit attack knockback, not passive Arcade body pushing.
 - Input: `InputController` merges keyboard, touch, and optional gamepad into one `InputState`.
 - Combat: state machine, attack phases, combo buffering, hit detection, block/guard, counter, dodge, damage, status effects, and attack slot limits.
 - AI: enemy behavior follows Approach → Position → Telegraph → Attack → Recover.
@@ -73,7 +73,7 @@ Stun prevents action until recovery. Airborne stores logical height and falls in
 
 ## AttackDirector
 
-`AttackDirector` owns enemy attack permissions. It enforces separate normal/heavy attacker caps and a small global delay. Enemies without permission keep moving into position instead of idling.
+`AttackDirector` owns enemy attack permissions. It enforces separate normal/heavy attacker caps and a small global delay. Enemies without permission keep moving into position instead of idling. Defeat, reset, death, and interruption paths release slots before new enemy attack permissions can be granted.
 
 ## Events
 
