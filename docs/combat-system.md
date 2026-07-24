@@ -90,3 +90,7 @@ F2 toggles a lightweight overlay with player id, health, guard, state, attack ph
 ## Stage 3 character and skill flow
 
 Kael replaces the generic player combo with five data-defined attacks. Skills are `SkillDefinition` entries with cooldown metadata and are executed through `SkillController`, `AttackController`, `HitDetectionSystem`, `DamageSystem`, and status application rather than a parallel damage path. Death cleanup now resets combo index/timer, input buffer, active attack, attack phase, skill state, cooldown transients where appropriate, counter readiness, and Momentum. Contextual attacks are selected deterministically from enemy control states and reuse the same damage pipeline.
+
+## Stage 3.1 skill lifecycle contract
+
+Skill execution follows `input → startup → active → recovery → complete → idle/recovering`. Every abnormal route calls `finishSkill(reason)` instead of duplicating cleanup in individual abilities. Cooldowns start at skill input and remain active after cleanup. Death keeps the player dead; stun/knockdown are preserved; scene reset skips transitions on destroyed actors. The debug overlay includes a development watchdog warning for possible stuck attacking/recovering skill states when F2 is enabled, but it never forces recovery in production.

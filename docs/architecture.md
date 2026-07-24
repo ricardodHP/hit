@@ -87,3 +87,7 @@ Future original characters can reuse attack definitions, combo windows, state re
 ## Stage 3 character framework
 
 `CharacterSelectScene` now sits between preload and combat. It displays registered characters and starts combat with the selected definition. `CharacterDefinition`, `CharacterRegistry`, and `CharacterFactory` keep playable character identity, stats, combo IDs, skill loadout, contextual attacks, visual keys, and optional mechanics out of `CombatScene`. Kael's Momentum mechanic is isolated in `KaelMomentumSystem`; attacks and skills remain data consumed by the existing attack, hit detection, damage, and status pipeline.
+
+## Stage 3.1 skill finalization
+
+Skills now end through `SkillController.finishSkill(reason)`. The contract is central and idempotent: completion, interruption, collision, death, cancellation, and scene reset all clear registered timers, tweens, hitboxes, movement/rotation overrides, speed modifiers, temporary armor/invulnerability hooks, visual state, pending callbacks, active skill id, and attack phase before requesting a safe combat-state transition. Scene shutdown uses the reset reason so destroyed instances are not moved back to idle.
