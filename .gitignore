@@ -5,6 +5,3 @@ tsconfig.tsbuildinfo
 
 # Generated local raster placeholder assets
 assets/**/*.png
-
-# Generated Vite-served runtime assets
-public/assets/

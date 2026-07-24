@@ -22,4 +22,4 @@ These assets are coherent placeholders and are not final production art.
 
 ## Binary-free PR workflow
 
-The generated PNG files and copied runtime JSON files are local runtime artifacts under `public/assets/`, not tracked Git files, because this PR environment rejects binary files. Run `npm run assets:generate` manually if assets are missing; `postinstall`, `predev`, `pretest`, and `prebuild` also regenerate them automatically. Source atlas JSON, tilemap JSON, manifest metadata, and the generator script remain versioned as text under `assets/` and `src/`.
+The generated PNG files are local runtime artifacts, not tracked Git files, because this PR environment rejects binary files. Run `npm run assets:generate` manually if assets are missing; `postinstall`, `predev`, `pretest`, and `prebuild` also regenerate them automatically. Atlas JSON, tilemap JSON, manifest metadata, and the generator script remain versioned as text.

@@ -4,9 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { assetManifest, KAEL_REQUIRED_ANIMATIONS, getAnimation } from '../src/game/assets/assetManifest';
 import { KAEL_ATTACKS } from '../src/game/characters/kael/kael.attacks';
 import { KAEL_SKILLS } from '../src/game/characters/kael/kael.skills';
-const repo=process.cwd(); const runtimePath=(assetPath:string)=>path.join(repo, assetPath.startsWith('/assets/') ? `public${assetPath}` : assetPath); const allAssets=assetManifest.assets; const allAnimations=allAssets.flatMap(a=>a.animations??[]);
+const repo=process.cwd(); const allAssets=assetManifest.assets; const allAnimations=allAssets.flatMap(a=>a.animations??[]);
 describe('Stage 3.2 raster asset manifest',()=>{
- it('declares critical local assets with unique keys and existing files',()=>{const keys=new Set<string>(); for(const a of allAssets){expect(a.key.length>0).toBe(true); expect(keys.has(a.key)).toBe(false); keys.add(a.key); expect(/^https?:\/\//.test(a.path)).toBe(false); expect(fs.existsSync(runtimePath(a.path))).toBe(true); if(a.atlasJson) expect(fs.existsSync(runtimePath(a.atlasJson))).toBe(true);}});
+ it('declares critical local assets with unique keys and existing files',()=>{const keys=new Set<string>(); for(const a of allAssets){expect(a.key.length>0).toBe(true); expect(keys.has(a.key)).toBe(false); keys.add(a.key); expect(/^https?:\/\//.test(a.path)).toBe(false); expect(fs.existsSync(path.join(repo,a.path))).toBe(true); if(a.atlasJson) expect(fs.existsSync(path.join(repo,a.atlasJson))).toBe(true);}});
  it('declares Kael, enemies, Asteria, effects, UI, and missing texture',()=>{expect(allAssets.find(a=>a.key==='kael-atlas')?.kind).toBe('spritesheet'); expect(allAssets.find(a=>a.key==='soldier-atlas')?.kind).toBe('spritesheet'); expect(allAssets.find(a=>a.key==='brute-atlas')?.kind).toBe('spritesheet'); expect(allAssets.some(a=>a.key==='asteria-map'&&a.kind==='tilemap')).toBe(true); expect(allAssets.some(a=>a.key==='asteria-tiles')).toBe(true); expect(allAssets.some(a=>a.key==='sword-effects-atlas')).toBe(true); expect(allAssets.some(a=>a.key==='hud-frame')).toBe(true); expect(allAssets.some(a=>a.key==='missing-texture')).toBe(true);});
 });
 describe('Stage 3.2 animation declarations',()=>{

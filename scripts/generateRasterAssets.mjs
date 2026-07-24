@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import zlib from 'node:zlib';
 
-const sourceRoot = 'assets';
-const root = 'public/assets';
+const root = 'assets';
 const ensureParent = (filePath) => fs.mkdirSync(filePath.slice(0, filePath.lastIndexOf('/')), { recursive: true });
 
 function crc32(buffer) {
@@ -96,18 +95,4 @@ actorSheet(`${root}/enemies/stone-brute/brute-atlas.png`, 'brute');
 writePng(`${root}/environments/asteria/asteria-tileset.png`, 512, 256, (draw) => { const colors = [[48,50,57,255],[55,58,66,255],[39,43,47,255],[65,60,55,255],[42,60,48,255],[35,32,41,255],[88,74,58,255],[75,72,78,255]]; for (let i = 0; i < 32; i += 1) { const x = (i % 8) * 64; const y = Math.floor(i / 8) * 64; draw.rect(x, y, 64, 64, colors[i % 8]); draw.line(x + 8, y + 20, x + 56, y + 18, [25,25,30,160], 1); draw.line(x + 20, y + 44, x + 50, y + 50, [20,20,25,120], 1); } });
 for (const [path, width, height, color] of [['debug/missing-texture.png',64,64,[255,0,255,255]], ['environments/asteria/asteria-background.png',1280,720,[20,18,25,255]], ['ui/hud-frame.png',512,128,[35,28,38,230]], ['ui/character-select.png',768,512,[28,27,40,240]], ['characters/kael/kael-portrait.png',256,256,[32,57,75,255]], ['ui/skill-icons.png',384,64,[40,38,52,255]], ['characters/kael/kael-icons.png',384,64,[35,50,65,255]]]) writePng(`${root}/${path}`, width, height, (draw) => { draw.rect(0, 0, width, height, color); draw.rect(4, 4, width - 8, height - 8, [139, 110, 70, 255]); });
 for (const name of ['sword-effects-atlas', 'status-effects-atlas', 'telegraph-atlas', 'shadows-atlas', 'props-atlas']) writePng(`${root}/effects/${name}.png`, 128 * 16, 128, (draw) => { for (let i = 0; i < 16; i += 1) { const x = i * 128; draw.ellipse(x + 64, 64, 46, 18, [120,220,255,90]); draw.line(x + 20, 96, x + 108, 32, [255,210,110,220], 5); draw.triangle([x + 64,18], [x + 78,64], [x + 64,110], [190,70,220,130]); } });
-
-function copyRuntimeJson(sourceDirectory = sourceRoot, targetDirectory = root) {
-  for (const entry of fs.readdirSync(sourceDirectory, { withFileTypes: true })) {
-    const sourcePath = `${sourceDirectory}/${entry.name}`;
-    const targetPath = `${targetDirectory}/${entry.name}`;
-    if (entry.isDirectory()) copyRuntimeJson(sourcePath, targetPath);
-    else if (entry.name.endsWith('.json')) {
-      ensureParent(targetPath);
-      fs.copyFileSync(sourcePath, targetPath);
-    }
-  }
-}
-
-copyRuntimeJson();
-console.log('Generated local runtime raster placeholder assets in public/assets.');
+console.log('Generated local raster placeholder PNG assets.');

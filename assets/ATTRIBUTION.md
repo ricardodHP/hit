@@ -1,6 +1,6 @@
 # Asset Attribution
+All Stage 3.2 raster PNG assets are original provisional placeholders generated locally for this project by `npm run assets:generate`. PNG outputs are intentionally ignored by Git because the PR system does not accept binary files.
 
-All Stage 3.2 raster PNG assets are original provisional placeholders generated locally for this project by `npm run assets:generate`. PNG outputs are generated into `public/assets/` and intentionally ignored by Git because the PR system does not accept binary files.
 
 - License: project-owned placeholder art for modification and distribution with this repository.
 - External sources: none.
