@@ -1,6 +1,6 @@
 # Ruins of Asteria
 
-A maintainable browser action RPG prototype with original names, local placeholder art, and top-down arena combat patterns. Stage 2 replaces the provisional combat with a data-driven combat framework.
+A maintainable browser action RPG prototype with original names, local placeholder art, and top-down arena combat patterns. Stage 2 replaces the provisional combat with a data-driven combat framework. Stage 2.5 stabilizes lethal damage, explicit knockback, scene restart cleanup, and combat QA documentation.
 
 ## Technologies
 
@@ -55,7 +55,7 @@ The playable arena remains **Ruins of Asteria**: stone floor, exterior walls, sa
 - Placeholder graphics are generated locally from Phaser shapes and are not final art.
 - Enemy movement is still lightweight steering/repositioning, not pathfinding.
 - Hit-stop is represented with short camera/impact feedback and entity timing hooks, not a full animation time-scaling layer.
-- Manual validation in this environment is limited to code inspection and automated checks; browser playtesting should be repeated locally.
+- Stage 2.5 automated stabilization checks pass, but interactive browser QA is blocked in this container and must be repeated locally before declaring the stage fully complete.
 - No character classes, campaign, inventory, progression, final audio, backend, monetization, PvP, or online save systems are included.
 
 ## Next stage
