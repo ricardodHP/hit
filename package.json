@@ -9,7 +9,12 @@
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "lint": "eslint eslint.config.js && tsc --noEmit"
+    "lint": "eslint eslint.config.js && tsc --noEmit",
+    "assets:generate": "node scripts/generateRasterAssets.mjs",
+    "postinstall": "npm run assets:generate",
+    "predev": "npm run assets:generate",
+    "prebuild": "npm run assets:generate",
+    "pretest": "npm run assets:generate"
   },
   "dependencies": {
     "@vitejs/plugin-basic-ssl": "latest",

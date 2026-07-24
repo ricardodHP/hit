@@ -2,7 +2,7 @@
 
 ## Scene cycle
 
-`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` creates all provisional local textures through generated Phaser graphics and then starts `CombatScene`. `CombatScene` orchestrates the arena runtime: world creation, player/enemy spawning, collisions, input routing, combat system updates, HUD state, victory, defeat, and restart. Restart uses scene reconstruction with explicit shutdown cleanup for HUD/debug DOM, touch controls, telegraphs, combat controllers, and `AttackDirector` slots so no stale actor references remain.
+`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` loads local raster assets from the central manifest, validates critical textures/animations, and then starts the character selector. `CombatScene` orchestrates the arena runtime: world creation, player/enemy spawning, collisions, input routing, combat system updates, HUD state, victory, defeat, and restart. Restart uses scene reconstruction with explicit shutdown cleanup for HUD/debug DOM, touch controls, telegraphs, combat controllers, and `AttackDirector` slots so no stale actor references remain.
 
 ## Responsibilities
 
