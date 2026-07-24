@@ -1,0 +1,11 @@
+import { ENEMY } from '../constants/game.constants';
+import { clampHealth, nextEnemyState, tickCooldown } from '../logic/combatMath';
+import type { EnemyConfig, EnemyState, EnemyVariant } from '../types/game.types';
+import type { Player } from './Player';
+export class Enemy extends Phaser.Physics.Arcade.Sprite {
+  readonly config: EnemyConfig; health: number; state: EnemyState = 'Idle'; attackCooldown: number; private recoverMs = 0;
+  constructor(scene: Phaser.Scene, x: number, y: number, variant: EnemyVariant, delay: number) { const config = ENEMY[variant]; super(scene,x,y,config.key); this.config=config; this.health=config.maxHealth; this.attackCooldown=delay; scene.add.existing(this); scene.physics.add.existing(this); this.setScale(config.scale).setDepth(8); this.body!.setCircle(20); }
+  updateEnemy(player: Player, delta: number, activeAttackers: number): boolean { if(this.state==='Dead') return false; this.attackCooldown=tickCooldown(this.attackCooldown,delta); this.recoverMs=tickCooldown(this.recoverMs,delta); const dist=Phaser.Math.Distance.Between(this.x,this.y,player.x,player.y); if(this.recoverMs<=0 && this.state==='Recover') this.state='Chase'; this.state=nextEnemyState(this.state,dist,this.config.attackRange,this.attackCooldown<=0 && activeAttackers<2,this.health>0); if(this.state==='Chase'){this.scene.physics.moveToObject(this,player,this.config.speed);} else this.setVelocity(0); if(this.state==='Attack'){this.attackCooldown=this.config.attackCooldown+Phaser.Math.Between(0,380); this.state='Recover'; this.recoverMs=360; return player.receiveDamage(this.config.damage);} return false; }
+  receiveDamage(damage: number, from: Phaser.Math.Vector2, knockback: number): boolean { if(this.state==='Dead') return false; this.health=clampHealth(this.health,damage); const dir=new Phaser.Math.Vector2(this.x-from.x,this.y-from.y).normalize(); this.setVelocity(dir.x*knockback*this.config.knockbackResistance,dir.y*knockback*this.config.knockbackResistance); this.recoverMs=180; this.state=this.health<=0?'Dead':'Recover'; if(this.state==='Dead'){this.disableBody(true,true);} return this.state==='Dead'; }
+}
+export const enemyConfigFor = (variant: EnemyVariant): EnemyConfig => ENEMY[variant];
