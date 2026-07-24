@@ -1,2 +1,2 @@
 import { createPlaceholderTextures } from '../assets/createPlaceholderTextures';
-export class PreloadScene extends Phaser.Scene { constructor(){super('PreloadScene');} create(): void { const t=this.add.text(640,360,'Forging provisional Asteria assets...',{color:'#fff'}).setOrigin(.5); createPlaceholderTextures(this); this.time.delayedCall(250,()=>{t.destroy(); this.scene.start('CombatScene');}); } }
+export class PreloadScene extends Phaser.Scene { constructor(){super('PreloadScene');} create(): void { const t=this.add.text(640,360,'Forging provisional Asteria assets...',{color:'#fff'}).setOrigin(.5); createPlaceholderTextures(this); this.time.delayedCall(250,()=>{t.destroy(); this.scene.start('CharacterSelectScene');}); } }

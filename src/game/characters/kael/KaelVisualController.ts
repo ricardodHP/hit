@@ -1,0 +1,1 @@
+export class KaelVisualController { constructor(private scene:Phaser.Scene){} flashMomentum(x:number,y:number):void{ const ring=this.scene.add.image(x,y,'kael-momentum-ring').setDepth(1001).setAlpha(.9); this.scene.tweens.add({targets:ring,scale:1.7,alpha:0,duration:420,onComplete:()=>ring.destroy()}); } }

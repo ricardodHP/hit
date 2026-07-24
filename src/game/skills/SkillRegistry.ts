@@ -1,0 +1,2 @@
+import type { SkillDefinition } from './SkillDefinition';
+export class SkillRegistry { private defs=new Map<string,SkillDefinition>(); register(skill:SkillDefinition):void{ if(this.defs.has(skill.id)) throw new Error(`Duplicate skill id: ${skill.id}`); this.defs.set(skill.id,skill);} get(id:string):SkillDefinition{const s=this.defs.get(id); if(!s) throw new Error(`Unknown skill id: ${id}`); return s;} list():SkillDefinition[]{return [...this.defs.values()];}}

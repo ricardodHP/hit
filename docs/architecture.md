@@ -82,3 +82,8 @@ The combat model is prepared around events such as `combat:attack-started`, `com
 ## Future character readiness
 
 Future original characters can reuse attack definitions, combo windows, state restrictions, block/counter logic, dodge rules, status applications, and enemy director policies without adding combat rules to `CombatScene`.
+
+
+## Stage 3 character framework
+
+`CharacterSelectScene` now sits between preload and combat. It displays registered characters and starts combat with the selected definition. `CharacterDefinition`, `CharacterRegistry`, and `CharacterFactory` keep playable character identity, stats, combo IDs, skill loadout, contextual attacks, visual keys, and optional mechanics out of `CombatScene`. Kael's Momentum mechanic is isolated in `KaelMomentumSystem`; attacks and skills remain data consumed by the existing attack, hit detection, damage, and status pipeline.

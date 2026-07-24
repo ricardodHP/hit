@@ -1,0 +1,2 @@
+import type { SkillDefinition } from './SkillDefinition';
+export class SkillLoadout { readonly skills:SkillDefinition[]; constructor(ids:string[], all:SkillDefinition[]){ this.skills=ids.map(id=>{const s=all.find(v=>v.id===id); if(!s) throw new Error(`Missing skill ${id}`); return s;}); if(this.skills.length!==3) throw new Error('Loadout must contain exactly three skills'); } get(slot:number):SkillDefinition|undefined{return this.skills[slot];}}

@@ -14,3 +14,5 @@
 - Combat state transitions must go through validated state-machine logic.
 - Every new combat action must include renderer-independent logic tests when practical.
 - Do not introduce character-specific mechanics before Stage 3.
+
+- Stage 3 character content must stay data-driven through `src/game/characters` and `src/game/skills`; do not add a second playable character yet.

@@ -1,0 +1,13 @@
+import type { AttackDefinition } from '../../combat/AttackDefinition';
+export const KAEL_ATTACKS: AttackDefinition[]=[
+{id:'kael-twin-slash-1',name:'Twin Slash I',startupMs:70,activeMs:80,recoveryMs:135,damage:12,hitbox:{shape:'arc',offsetX:42,offsetY:0,radius:72,arcDegrees:92},knockback:120,hitStopMs:34,movement:{distance:20,durationMs:110},nextAttackId:'kael-twin-slash-2',comboWindowStartMs:140,comboWindowEndMs:285,canDodgeCancelRecovery:true},
+{id:'kael-twin-slash-2',name:'Twin Slash II',startupMs:80,activeMs:85,recoveryMs:150,damage:16,hitbox:{shape:'arc',offsetX:48,offsetY:0,radius:86,arcDegrees:110},knockback:145,hitStopMs:40,nextAttackId:'kael-cross-cut',comboWindowStartMs:155,comboWindowEndMs:315,canDodgeCancelRecovery:true},
+{id:'kael-cross-cut',name:'Cross Cut',startupMs:105,activeMs:190,recoveryMs:175,damage:11,hitbox:{shape:'rectangle',offsetX:54,offsetY:0,width:104,height:62},knockback:150,hitStopMs:38,multiHit:true,nextAttackId:'kael-rising-fang',comboWindowStartMs:250,comboWindowEndMs:420,canDodgeCancelRecovery:true},
+{id:'kael-rising-fang',name:'Rising Fang',startupMs:145,activeMs:115,recoveryMs:240,damage:24,hitbox:{shape:'arc',offsetX:50,offsetY:-8,radius:92,arcDegrees:100},knockback:185,hitStopMs:60,appliesStatus:[{type:'airborne',durationMs:720}],nextAttackId:'kael-falling-edge',comboWindowStartMs:265,comboWindowEndMs:475},
+{id:'kael-falling-edge',name:'Falling Edge',startupMs:185,activeMs:135,recoveryMs:410,damage:38,hitbox:{shape:'arc',offsetX:62,offsetY:0,radius:112,arcDegrees:118},knockback:320,hitStopMs:86,movement:{distance:28,durationMs:180},appliesStatus:[{type:'knockdown',durationMs:720}]},
+{id:'kael-counter',name:'Mirror Riposte',startupMs:65,activeMs:125,recoveryMs:245,damage:42,hitbox:{shape:'arc',offsetX:56,offsetY:0,radius:105,arcDegrees:120},knockback:360,hitStopMs:100,superArmorDuringActive:true,appliesStatus:[{type:'stun',durationMs:520}]},
+{id:'kael-sky-reaver',name:'Sky Reaver',startupMs:120,activeMs:260,recoveryMs:320,damage:34,hitbox:{shape:'rectangle',offsetX:60,offsetY:-10,width:92,height:72},knockback:260,hitStopMs:70,multiHit:true,appliesStatus:[{type:'knockdown',durationMs:520}]},
+{id:'kael-flash-execution',name:'Flash Execution',startupMs:110,activeMs:320,recoveryMs:300,damage:44,hitbox:{shape:'rectangle',offsetX:58,offsetY:0,width:96,height:54},knockback:300,hitStopMs:75,multiHit:true,appliesStatus:[{type:'stun',durationMs:220}]},
+{id:'kael-falling-judgment',name:'Falling Judgment',startupMs:150,activeMs:150,recoveryMs:360,damage:46,hitbox:{shape:'circle',offsetX:42,offsetY:0,radius:78},knockback:220,hitStopMs:90},
+];
+export const KAEL_COUNTER_ATTACK=KAEL_ATTACKS.find(a=>a.id==='kael-counter')!;
