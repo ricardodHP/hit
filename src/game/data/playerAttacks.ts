@@ -1,0 +1,9 @@
+import type { AttackDefinition } from '../combat/AttackDefinition';
+export const PLAYER_ATTACKS: AttackDefinition[] = [
+{id:'player-attack-1',name:'Attack 1',startupMs:90,activeMs:90,recoveryMs:160,damage:14,hitbox:{shape:'arc',offsetX:44,offsetY:0,radius:76,arcDegrees:95},knockback:135,hitStopMs:40,movement:{distance:18,durationMs:120},nextAttackId:'player-attack-2',comboWindowStartMs:180,comboWindowEndMs:330,canDodgeCancelRecovery:true},
+{id:'player-attack-2',name:'Attack 2',startupMs:95,activeMs:95,recoveryMs:170,damage:18,hitbox:{shape:'arc',offsetX:50,offsetY:0,radius:88,arcDegrees:105},knockback:165,hitStopMs:45,nextAttackId:'player-attack-3',comboWindowStartMs:190,comboWindowEndMs:350,canDodgeCancelRecovery:true},
+{id:'player-attack-3',name:'Attack 3',startupMs:130,activeMs:100,recoveryMs:210,damage:24,hitbox:{shape:'rectangle',offsetX:58,offsetY:0,width:104,height:58},knockback:230,hitStopMs:65,appliesStatus:[{type:'stun',durationMs:360}],nextAttackId:'player-finisher',comboWindowStartMs:230,comboWindowEndMs:420},
+{id:'player-finisher',name:'Finisher',startupMs:190,activeMs:120,recoveryMs:360,damage:36,hitbox:{shape:'arc',offsetX:62,offsetY:0,radius:112,arcDegrees:120},knockback:330,hitStopMs:85,appliesStatus:[{type:'knockdown',durationMs:650},{type:'airborne',durationMs:300}]},
+];
+export const PLAYER_COUNTER_ATTACK: AttackDefinition = { id:'player-counter', name:'Counter', startupMs:70, activeMs:130, recoveryMs:260, damage:42, hitbox:{shape:'arc',offsetX:56,offsetY:0,radius:105,arcDegrees:120}, knockback:360, hitStopMs:110, superArmorDuringActive:true, appliesStatus:[{type:'stun',durationMs:520}] };
+export const PLAYER_SKILL_ATTACK: AttackDefinition = { id:'player-circular-skill', name:'Circular Skill', startupMs:120, activeMs:160, recoveryMs:260, damage:32, hitbox:{shape:'circle',offsetX:0,offsetY:0,radius:132}, knockback:300, hitStopMs:70, appliesStatus:[{type:'airborne',durationMs:450}] };

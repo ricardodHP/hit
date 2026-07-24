@@ -1,0 +1,1 @@
+export class HitStopController { remainingMs=0; trigger(ms:number): void { this.remainingMs=Math.max(this.remainingMs,ms); } update(deltaMs:number): number { this.remainingMs=Math.max(0,this.remainingMs-deltaMs); return this.remainingMs>0?0.2:1; } }

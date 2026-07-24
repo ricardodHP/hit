@@ -9,3 +9,8 @@
 - Prefer simple solutions before premature abstractions.
 - Document important architectural decisions.
 - Maintain keyboard and touch-control support.
+- Attacks must be defined through data in `src/game/data` instead of hard-coded directly in scenes or actors.
+- Hitboxes and hurtboxes must not be hard-coded in scenes.
+- Combat state transitions must go through validated state-machine logic.
+- Every new combat action must include renderer-independent logic tests when practical.
+- Do not introduce character-specific mechanics before Stage 3.

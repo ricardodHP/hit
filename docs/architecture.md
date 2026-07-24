@@ -2,34 +2,83 @@
 
 ## Scene cycle
 
-`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` creates all provisional local textures through generated Phaser graphics and then starts `CombatScene`. `CombatScene` owns the arena runtime: world creation, player/enemy spawning, collisions, combat updates, HUD state, victory, defeat, and restart.
+`BootScene` stores minimal global setup and advances to `PreloadScene`. `PreloadScene` creates all provisional local textures through generated Phaser graphics and then starts `CombatScene`. `CombatScene` orchestrates the arena runtime: world creation, player/enemy spawning, collisions, input routing, combat system updates, HUD state, victory, defeat, and restart.
 
 ## Responsibilities
 
 - Config: Phaser renderer, scaling, physics, and scene list.
-- Actors: `Player` and `Enemy` encapsulate mutable arcade bodies and gameplay state.
+- Actors: `Player` and `Enemy` encapsulate Phaser sprite/body state and expose combat runtime snapshots.
 - Input: `InputController` merges keyboard, touch, and optional gamepad into one `InputState`.
-- Combat: `BasicCombatController` handles provisional attacks, skill effects, combo, score, hit-stop-like shake, particles, and knockback.
+- Combat: state machine, attack phases, combo buffering, hit detection, block/guard, counter, dodge, damage, status effects, and attack slot limits.
+- AI: enemy behavior follows Approach → Position → Telegraph → Attack → Recover.
+- Effects: hit-stop/camera/impact feedback are isolated from damage rules.
 - World: `AsteriaArena` builds Ruins of Asteria and exposes collision objects.
 - UI: `CombatHud` renders HTML overlay state without owning combat logic.
-- Logic: pure math helpers stay independent of Phaser rendering for Vitest.
+- Debug: `CombatDebugOverlay` shows combat state only when F2 toggles it.
+- Logic: pure helpers stay independent of Phaser rendering for Vitest.
 
-## Input flow
+## Combatant state machine
 
-Browser input is read by Phaser keyboard/gamepad APIs and DOM touch buttons. `InputController.getState()` returns movement axes and action booleans. `CombatScene.update()` applies those values to the player and combat controller.
+Combatants use explicit states: `idle`, `moving`, `attacking`, `blocking`, `dodging`, `countering`, `stunned`, `airborne`, `knockedDown`, `recovering`, and `dead`. Transitions are validated by `CombatStateMachine`; arbitrary transitions are rejected. Temporary states tick down and return through recovery where appropriate.
 
-## Provisional combat flow
+## Attack cycle
 
-The player triggers basic attack, circular skill, or dodge when cooldowns allow it. Basic attack checks a point in front of the current facing direction. Circular skill checks a radius around the player. Hits damage enemies, add particles, apply knockback, update combo, and add score.
+Attack definitions live in data modules. `AttackController` runs each attack through:
 
-## Adding a provisional texture
+```text
+Startup
+→ Active
+→ Recovery
+→ Complete
+```
 
-Add a new `make(scene, key, width, height, draw)` call in `src/game/assets/createPlaceholderTextures.ts`. Keep generated art original, local, and reusable by key instead of drawing it repeatedly during `update()`.
+Only the active phase can hit. Recovery blocks immediate spam, while selected attacks can allow dodge cancellation.
 
-## Adding an enemy variant
+## Hitbox and hurtbox
 
-Add a new entry to `ENEMY` in `src/game/constants/game.constants.ts`, extend the `EnemyVariant` union in `src/game/types/game.types.ts`, create or reuse a texture key in `createPlaceholderTextures`, and spawn it from `CombatScene`.
+`Hitbox` supports circle, rectangle, and approximate frontal arc geometry. `HitDetectionSystem` filters owner, allies, defeated targets, and duplicate hits before handing an impact to damage resolution. `Hurtbox` defines target receiving areas for future richer broad-phase integration.
 
-## Stage 2 extension points
+## Damage flow
 
-The coarse combat controller, direct-chase enemy AI, placeholder texture generation, and simple HTML HUD are intended to be replaced or extended. The separated input, actor, world, and pure-logic modules are kept stable enough to support that migration.
+```text
+HitDetection
+→ DamageSystem
+→ Invulnerability check
+→ Block/perfect block check
+→ Guard and damage application
+→ Status/knockback hooks
+→ Combat event payload
+→ HUD and effects
+```
+
+`DamageSystem` returns `HitEvent` data for decoupled scoring, effects, future audio, and telemetry.
+
+## Perfect block and counter flow
+
+```text
+Block starts
+→ Incoming frontal blockable hit
+→ BlockSystem compares elapsed time to config window
+→ DamageSystem marks perfect block
+→ CounterSystem opens counter window
+→ Attack input consumes counter
+→ Counter attack definition runs through normal attack phases
+```
+
+The counter is not part of the normal combo and can be balanced through its own data definition.
+
+## Control states
+
+Stun prevents action until recovery. Airborne stores logical height and falls into knockdown. Knockdown leaves the target vulnerable before recovery and grants brief get-up invulnerability. Heavy enemies use resistance multipliers rather than full immunity.
+
+## AttackDirector
+
+`AttackDirector` owns enemy attack permissions. It enforces separate normal/heavy attacker caps and a small global delay. Enemies without permission keep moving into position instead of idling.
+
+## Events
+
+The combat model is prepared around events such as `combat:attack-started`, `combat:attack-active`, `combat:attack-ended`, `combat:hit`, `combat:blocked`, `combat:perfect-block`, `combat:counter-ready`, `combat:counter-used`, `combat:status-applied`, `combat:status-ended`, `combat:entity-defeated`, and `combat:combo-changed`. Current code returns event payloads from logic systems and can wire them to a Phaser event emitter as content grows.
+
+## Future character readiness
+
+Future original characters can reuse attack definitions, combo windows, state restrictions, block/counter logic, dodge rules, status applications, and enemy director policies without adding combat rules to `CombatScene`.
